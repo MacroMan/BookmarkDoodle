@@ -1,8 +1,9 @@
-(function (document) {
-	var body = document.body, html = document.documentElement;
+(function (window, document) {
+	var body = document.body;
+	var de = document.documentElement;
 	var can = document.createElement('canvas');
-	var width = can.width = document.documentElement.clientWidth;
-	var height = can.height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+	var width = can.width = Math.max(window.innerWidth, de.clientWidth, body.clientWidth);
+	var height = can.height = Math.max(window.innerHeight, de.clientHeight, body.clientHeight);
 
 	var s = can.style;
 	s.position = 'absolute';
@@ -37,12 +38,10 @@
 	addEventListener(can, "mousemove", function (e) {
 		if (down) {
 			var x = e.pageX, y = e.pageY;
+			ctx.clearRect(0, 0, width, height);
 			ctx.beginPath();
-			ctx.moveTo(start.x, start.y);
-			ctx.lineTo(x, y);
+			ctx.rect(start.x, start.y, x - start.x, y - start.y);
 			ctx.stroke();
-			start.x = x;
-			start.y = y;
 		}
 	});
 
@@ -55,4 +54,4 @@
 		}
 	}
 
-})(document);
+})(window, document);

@@ -15,7 +15,7 @@
 	body.appendChild(can);
 
 	var ctx = can.getContext("2d");
-	ctx.strokeStyle = "#F00";
+	ctx.strokeStyle = (typeof BDColor != 'undefined') ? "#" + BDColor : "#000";
 	ctx.lineWidth = 3;
 
 	var down = false;
@@ -38,6 +38,7 @@
 	addEventListener(can, "mousemove", function (e) {
 		if (down) {
 			var x = e.pageX, y = e.pageY;
+			ctx.strokeStyle = (typeof BDColor != 'undefined') ? "#" + BDColor : "#000";
 			ctx.beginPath();
 			ctx.moveTo(start.x, start.y);
 			ctx.lineTo(x, y);
